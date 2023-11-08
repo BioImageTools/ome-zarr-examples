@@ -16,7 +16,8 @@ Note that other lists of publicly available OME-Zarrs do exist:
 * https://idr.github.io/ome-ngff-samples/
 * https://ome.github.io/ome-ngff-tools/
 
-This repository is meant to only contain syntethic data, only created to explore existing or future OME-Zarr validators test.
+This repository is meant to only contain lightweight syntethic data, created to
+explore/test some existing or future OME-Zarr validators.
 
 ## Validators
 
