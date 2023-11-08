@@ -15,7 +15,10 @@ Existing data samples:
 * https://idr.github.io/ome-ngff-samples/
 * https://ome.github.io/ome-ngff-tools/
 
-Here is a bunch of sources from https://ome.github.io/ome-ngff-tools:
+Here is a bunch of sources from https://ome.github.io/ome-ngff-tools. Download a copy through
+```
+ome_zarr download https://minio-dev.openmicroscopy.org/idr/v0.4/idr0077/9836832_z_dtype_fix.zarr
+```
 
 https://minio-dev.openmicroscopy.org/idr/v0.4/idr0077/9836832_z_dtype_fix.zarr
 
