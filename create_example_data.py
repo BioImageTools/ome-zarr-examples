@@ -243,3 +243,71 @@ array = zarr.open_array(
     chunks=(1, 32, 32),
 )
 # succeeds
+
+
+# PLATE
+plate = zarr.open_group("data/valid/plate-01.zarr", "w")
+plate.attrs.put(
+    {
+        "plate": {
+            "name": "my_wonderful_plate",
+            "version": "0.4",
+            "columns": [{"name": "1"}, {"name": "2"}],
+            "rows": [{"name": "A"}, {"name": "B"}],
+            "wells": [
+                {"path": "A/1", "rowIndex": 0, "columnIndex": 0},
+                {"path": "A/2", "rowIndex": 1, "columnIndex": 0},
+                {"path": "B/1", "rowIndex": 0, "columnIndex": 1},
+                {"path": "B/2", "rowIndex": 1, "columnIndex": 1},
+            ],
+        }
+    }
+)
+row_A = plate.create_group("A")
+row_B = plate.create_group("B")
+well_A1 = row_A.create_group("1")
+well_A2 = row_A.create_group("2")
+well_B1 = row_B.create_group("1")
+well_B2 = row_B.create_group("2")
+image_A1 = well_A1.create_group("0")
+image_A2 = well_A2.create_group("0")
+image_B1 = well_B1.create_group("0")
+image_B2 = well_B2.create_group("0")
+for well in [well_A1, well_A2, well_B1, well_B2]:
+    well.attrs.put(
+        {"well": {"images": [{"acquisition": 1, "path": "0"}], "version": "0.4"}}
+    )
+for image in [image_A1, image_A2, image_B1, image_B2]:
+    image.attrs.put(
+        {
+            "version": "0.4",
+            "multiscales": [
+                {
+                    "axes": [
+                        {"name": "y", "type": "space", "unit": "micrometer"},
+                        {"name": "x", "type": "space", "unit": "micrometer"},
+                    ],
+                    "datasets": [
+                        {
+                            "coordinateTransformations": [
+                                {"scale": [1.0, 1.0], "type": "scale"}
+                            ],
+                            "path": "0",
+                        },
+                    ],
+                    "version": "0.4",
+                }
+            ],
+        }
+    )
+    labels = image.create_group("labels")
+    labels.attrs.put({"labels": []})
+
+for col in ["A", "B"]:
+    for row in ["1", "2"]:
+        zarr.open_array(
+            f"data/valid/plate-01.zarr/{col}/{row}/0/0",
+            dimension_separator="/",
+            shape=(1000, 1000),
+            chunks=(100, 100),
+        )

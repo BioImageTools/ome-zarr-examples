@@ -1,0 +1,44 @@
+{
+    "plate": {
+        "columns": [
+            {
+                "name": "1"
+            },
+            {
+                "name": "2"
+            }
+        ],
+        "name": "my_wonderful_plate",
+        "rows": [
+            {
+                "name": "A"
+            },
+            {
+                "name": "B"
+            }
+        ],
+        "version": "0.4",
+        "wells": [
+            {
+                "columnIndex": 0,
+                "path": "A/1",
+                "rowIndex": 0
+            },
+            {
+                "columnIndex": 0,
+                "path": "A/2",
+                "rowIndex": 1
+            },
+            {
+                "columnIndex": 1,
+                "path": "B/1",
+                "rowIndex": 0
+            },
+            {
+                "columnIndex": 1,
+                "path": "B/2",
+                "rowIndex": 1
+            }
+        ]
+    }
+}
