@@ -1,43 +1,27 @@
 # ome-zarr-examples
 
-Collection of ome-zarr structures, for testing different NGFF validators
+Collection of OME-Zarr structures, for testing different NGFF validators.
 
+## Re-create the data
 
-Validate with https://ome.github.io/ome-ngff-validator (through `ome-zarr-py` CLI command `ome_zarr view`)
+This requires running the `create_example_data.py` Python script, which only requires
+the zarr-python library to be installed.
 
-```
-ome_zarr view 01-image.zarr/
-```
+## Other data collections
 
-
-Existing data samples:
+Note that other lists of publicly available OME-Zarrs do exist:
 
 * https://idr.github.io/ome-ngff-samples/
 * https://ome.github.io/ome-ngff-tools/
 
-Here is a bunch of sources from https://ome.github.io/ome-ngff-tools. Download a copy through
+This repository is meant to only contain syntethic data, only created to explore existing or future OME-Zarr validators test.
+
+## Validators
+
+The main existing validator is https://ome.github.io/ome-ngff-validator. A
+simple way to test it is through the
+[`ome-zarr-py`](https://github.com/ome/ome-zarr-py) CLI command `ome_zarr
+view`:
 ```
-ome_zarr download https://minio-dev.openmicroscopy.org/idr/v0.4/idr0077/9836832_z_dtype_fix.zarr
+ome_zarr view data/valid/01-image.zarr
 ```
-
-https://minio-dev.openmicroscopy.org/idr/v0.4/idr0077/9836832_z_dtype_fix.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr
-
-https://minio-dev.openmicroscopy.org/idr/v0.4/idr0082/9846318.zarr/0
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0052A/5514375.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0001A/2551.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0050A/4995115.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr
-
-https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr
