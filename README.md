@@ -2,6 +2,8 @@
 
 Collection of OME-Zarr structures, for testing different NGFF validators.
 
+Within `data`, there exist subfolders `valid`, `invalid` and `warning` (defined based on the outcome of https://ome.github.io/ome-ngff-validator).
+
 ## Re-create the data
 
 This requires running the `create_example_data.py` Python script, which only requires

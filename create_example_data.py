@@ -44,6 +44,56 @@ labels = image.create_group("labels")
 labels.attrs.put({"labels": []})
 # -> fails correctly, because of missing .zarray
 
+
+# WARNING for dtype mismatch
+image = zarr.open_group("data/warning/image-01.zarr", "w")
+image.attrs.put(
+    {
+        "version": "0.4",
+        "multiscales": [
+            {
+                "axes": [
+                    {"name": "y", "type": "space", "unit": "micrometer"},
+                    {"name": "x", "type": "space", "unit": "micrometer"},
+                ],
+                "datasets": [
+                    {
+                        "coordinateTransformations": [
+                            {"scale": [1.0, 1.0], "type": "scale"}
+                        ],
+                        "path": "0",
+                    },
+                    {
+                        "coordinateTransformations": [
+                            {"scale": [2.0, 2.0], "type": "scale"}
+                        ],
+                        "path": "1",
+                    },
+                ],
+                "version": "0.4",
+            }
+        ],
+    }
+)
+labels = image.create_group("labels")
+labels.attrs.put({"labels": []})
+array = zarr.open_array(
+    "data/warning/image-01.zarr/0",
+    dimension_separator="/",
+    shape=(64, 64),
+    chunks=(32, 32),
+    dtype=int,
+)
+array = zarr.open_array(
+    "data/warning/image-01.zarr/1",
+    dimension_separator="/",
+    shape=(32, 32),
+    chunks=(32, 32),
+    dtype=float,
+)
+# succeeds
+
+
 image = zarr.open_group("data/valid/image-01.zarr", "w")
 image.attrs.put(
     {
@@ -140,8 +190,56 @@ labels.attrs.put({"labels": []})
 array = zarr.open_array(
     "data/valid/image-03.zarr/0",
     dimension_separator="/",
-    shape=(20, 200, 200),
-    chunks=(10, 100, 100),
+    shape=(2, 100, 100),
+    chunks=(1, 50, 100),
 )
-array[:] = np.random.uniform(0, 1000, (20, 200, 200))
+array[:] = np.random.uniform(0, 1000, (2, 100, 100))
+# succeeds
+
+
+# More than one resolution level
+image = zarr.open_group("data/valid/image-04.zarr", "w")
+image.attrs.put(
+    {
+        "version": "0.4",
+        "multiscales": [
+            {
+                "axes": [
+                    {"name": "z", "type": "space", "unit": "micrometer"},
+                    {"name": "y", "type": "space", "unit": "micrometer"},
+                    {"name": "x", "type": "space", "unit": "micrometer"},
+                ],
+                "datasets": [
+                    {
+                        "coordinateTransformations": [
+                            {"scale": [1.0, 1.0, 1.0], "type": "scale"}
+                        ],
+                        "path": "0",
+                    },
+                    {
+                        "coordinateTransformations": [
+                            {"scale": [1.0, 2.0, 2.0], "type": "scale"}
+                        ],
+                        "path": "1",
+                    },
+                ],
+                "version": "0.4",
+            }
+        ],
+    }
+)
+labels = image.create_group("labels")
+labels.attrs.put({"labels": []})
+array = zarr.open_array(
+    "data/valid/image-04.zarr/0",
+    dimension_separator="/",
+    shape=(2, 64, 64),
+    chunks=(1, 32, 32),
+)
+array = zarr.open_array(
+    "data/valid/image-04.zarr/1",
+    dimension_separator="/",
+    shape=(2, 32, 32),
+    chunks=(1, 32, 32),
+)
 # succeeds
