@@ -45,6 +45,52 @@ labels.attrs.put({"labels": []})
 # -> fails correctly, because of missing .zarray
 
 
+# More than one resolution level
+image = zarr.open_group("data/invalid/image-04.zarr", "w")
+image.attrs.put(
+    {
+        "version": "0.4",
+        "multiscales": [
+            {
+                "axes": [
+                    {"name": "z", "type": "space", "unit": "micrometer"},
+                    {"name": "y", "type": "space", "unit": "micrometer"},
+                    {"name": "x", "type": "space", "unit": "micrometer"},
+                ],
+                "datasets": [
+                    {
+                        "coordinateTransformations": [
+                            {"scale": [1.0, 1.0, 1.0], "type": "scale"}
+                        ],
+                        "path": "0",
+                    },
+                    {
+                        "coordinateTransformations": [
+                            {"scale": [1.0, 2.0, 2.0], "type": "scale"}
+                        ],
+                        "path": "1",
+                    },
+                ],
+                "version": "0.4",
+            }
+        ],
+    }
+)
+labels = image.create_group("labels")
+labels.attrs.put({"labels": []})
+array = zarr.open_array(
+    "data/invalid/image-04.zarr/0",
+    dimension_separator="/",
+    shape=(2, 64, 64),
+    chunks=(1, 32, 32),
+)
+array = zarr.open_array(
+    "data/invalid/image-04.zarr/1",
+    dimension_separator="/",
+    shape=(32, 32),
+    chunks=(32, 32),
+)
+
 # WARNING for dtype mismatch
 image = zarr.open_group("data/warning/image-01.zarr", "w")
 image.attrs.put(
