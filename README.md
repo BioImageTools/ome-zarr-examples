@@ -8,3 +8,9 @@ Validate with https://ome.github.io/ome-ngff-validator (through `ome-zarr-py` CL
 ```
 ome_zarr view 01-image.zarr/
 ```
+
+
+Existing data samples:
+
+* https://idr.github.io/ome-ngff-samples/
+* https://ome.github.io/ome-ngff-tools/
