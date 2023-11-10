@@ -13,7 +13,7 @@ the zarr-python library to be installed.
 
 Note that other lists of publicly available OME-Zarrs do exist:
 
-* https://idr.github.io/ome-ngff-samples/
+* https://ngff.openmicroscopy.org/data/
 * https://ome.github.io/ome-ngff-tools/
 
 This repository is meant to only contain lightweight syntethic data, created to
